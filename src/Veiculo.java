@@ -1,10 +1,19 @@
-public class Veiculo {
+public abstract class Veiculo {
 
     private String placa;
     private String marca;
     private int ano;
     private String cor;
 
+    public Veiculo(String placa, String marca, int ano, String cor) {
+        this.placa = placa;
+        this.marca = marca;
+        this.ano = ano;
+        this.cor = cor;
+    }
+
+    public abstract String mostraInformacoesVeiculo();
+    
     public String getPlaca() {
         return this.placa;
     }

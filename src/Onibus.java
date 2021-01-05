@@ -2,11 +2,22 @@ public class Onibus extends Veiculo {
 
     private int quantidadeAssentos;
 
+    public Onibus(String placa, String marca, int ano, String cor, int quantidadeAssentos) {
+        super(placa, marca, ano, cor);
+        this.quantidadeAssentos = quantidadeAssentos;
+    }
+
     public int getQuantidadeAssentos() {
         return this.quantidadeAssentos;
     }
 
     public void setQuantidadeAssentos(int quantidadeAssentos) {
         this.quantidadeAssentos = quantidadeAssentos;
+    }
+
+    @Override
+    public String mostraInformacoesVeiculo() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

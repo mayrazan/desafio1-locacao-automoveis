@@ -1,10 +1,19 @@
-public class Carro extends Veiculo{
+public class Carro extends Veiculo {
     private int portas;
     private boolean arCondicionado;
     private Cambio cambio;
     private Direcao direcao;
 
-    public int getPortas() {
+    public Carro(String placa, String marca, int ano, String cor, int portas, boolean arCondicionado, Cambio cambio,
+            Direcao direcao) {
+        super(placa, marca, ano, cor);
+        this.portas = portas;
+        this.arCondicionado = arCondicionado;
+        this.cambio = cambio;
+        this.direcao = direcao;
+    }
+
+	public int getPortas() {
         return this.portas;
     }
 
@@ -34,5 +43,19 @@ public class Carro extends Veiculo{
 
     public void setCambio(Cambio cambio) {
         this.cambio = cambio;
+    }
+
+    public void escolheCambio(String escolha) {
+        if (escolha.charAt(0) == 'M') {
+            setCambio(Cambio.MANUAL);
+        } else if (escolha.charAt(0) == 'A') {
+            setCambio(Cambio.AUTOMATICO);
+        }
+    }
+
+    @Override
+    public String mostraInformacoesVeiculo() {
+        return this.getPortas() + " " + this.getArCondicionado() + " " + this.getCambio().toString() + " "
+                + this.getDirecao();
     }
 }

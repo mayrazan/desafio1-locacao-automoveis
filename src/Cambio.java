@@ -1,11 +1,15 @@
 public enum Cambio {
 
-    MANUAL("M"), AUTOMATICO("A");
+    MANUAL("MANUAL"), AUTOMATICO("AUTOMATICO");
 
     private String cambio;
 
     private Cambio(String cambio) {
         this.cambio = cambio;
+    }
+
+    public String toString() {
+        return cambio;
     }
 
 }
