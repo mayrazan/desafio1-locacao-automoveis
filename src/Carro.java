@@ -1,10 +1,10 @@
 public class Carro extends Veiculo {
     private int portas;
-    private boolean arCondicionado;
+    private String arCondicionado;
     private Cambio cambio;
     private Direcao direcao;
 
-    public Carro(String placa, String marca, int ano, String cor, int portas, boolean arCondicionado, Cambio cambio,
+    public Carro(String placa, String marca, int ano, String cor, int portas, String arCondicionado, Cambio cambio,
             Direcao direcao) {
         super(placa, marca, ano, cor);
         this.portas = portas;
@@ -13,7 +13,7 @@ public class Carro extends Veiculo {
         this.direcao = direcao;
     }
 
-	public int getPortas() {
+    public int getPortas() {
         return this.portas;
     }
 
@@ -21,11 +21,11 @@ public class Carro extends Veiculo {
         this.portas = portas;
     }
 
-    public boolean getArCondicionado() {
+    public String getArCondicionado() {
         return this.arCondicionado;
     }
 
-    public void setArCondicionado(boolean arCondicionado) {
+    public void setArCondicionado(String arCondicionado) {
         this.arCondicionado = arCondicionado;
     }
 
@@ -53,9 +53,29 @@ public class Carro extends Veiculo {
         }
     }
 
+    public void escolheDirecao(String escolha) {
+        if (escolha.charAt(0) == 'M') {
+            setDirecao(Direcao.MECANICA);
+        } else if (escolha.charAt(0) == 'H') {
+            setDirecao(Direcao.HIDRAULICA);
+        } else if (escolha.charAt(0) == 'E') {
+            setDirecao(Direcao.ELETRICA);
+        }
+    }
+
+    public void possuiArCondicionado(String escolha) {
+        if (escolha.charAt(0) == 'S') {
+            setArCondicionado("Sim");
+        } else if (escolha.charAt(0) == 'N') {
+            setArCondicionado("Não");
+        }
+    }
+
     @Override
     public String mostraInformacoesVeiculo() {
-        return this.getPortas() + " " + this.getArCondicionado() + " " + this.getCambio().toString() + " "
-                + this.getDirecao();
+        System.out.println("--- Informações do Carro ---");
+        return "Placa: " + this.getPlaca() + ", Marca: " + this.getMarca() + ", Cor: " + this.getCor() + ", Ano: "
+                + this.getAno() + ", Portas: " + this.getPortas() + ", Ar-Condicionado: " + this.getArCondicionado()
+                + ", Cambio: " + this.getCambio().toString() + ", Direção: " + this.getDirecao();
     }
 }
