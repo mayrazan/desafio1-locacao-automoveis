@@ -17,7 +17,8 @@ public class Caminhao extends Veiculo {
 
     @Override
     public String mostraInformacoesVeiculo() {
-        // TODO Auto-generated method stub
-        return null;
+        System.out.println("--- Informações do Caminhão ---");
+        return "Placa: " + this.getPlaca() + ", Marca: " + this.getMarca() + ", Cor: " + this.getCor() + ", Ano: "
+                + this.getAno() + ", Capacidade: " + this.getCapacidade() + " toneladas.";
     }
 }

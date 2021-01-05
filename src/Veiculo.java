@@ -13,7 +13,7 @@ public abstract class Veiculo {
     }
 
     public abstract String mostraInformacoesVeiculo();
-    
+
     public String getPlaca() {
         return this.placa;
     }

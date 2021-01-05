@@ -17,7 +17,8 @@ public class Onibus extends Veiculo {
 
     @Override
     public String mostraInformacoesVeiculo() {
-        // TODO Auto-generated method stub
-        return null;
+        System.out.println("--- Informações do Ônibus ---");
+        return "Placa: " + this.getPlaca() + ", Marca: " + this.getMarca() + ", Cor: " + this.getCor() + ", Ano: "
+                + this.getAno() + ", Quantidade de assentos: " + this.getQuantidadeAssentos();
     }
 }

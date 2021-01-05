@@ -1,20 +1,14 @@
 public enum Direcao {
-    MECANICA("M"), HIDRAULICA("H"), ELETRICA("E");
+    MECANICA("MECANICA"), HIDRAULICA("HIDRAULICA"), ELETRICA("ELETRICA");
 
-    private final String direcao;
+    private String direcao;
 
     private Direcao(String direcao) {
         this.direcao = direcao;
     }
 
-    public String getDirecao() {
+    public String toString() {
         return direcao;
     }
-
-    
-
-    public String toString(){
-        return direcao;
-      }
 
 }

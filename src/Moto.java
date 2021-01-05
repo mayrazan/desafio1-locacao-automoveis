@@ -17,7 +17,8 @@ public class Moto extends Veiculo {
 
     @Override
     public String mostraInformacoesVeiculo() {
-        // TODO Auto-generated method stub
-        return null;
+        System.out.println("--- Informações da Moto ---");
+        return "Placa: " + this.getPlaca() + ", Marca: " + this.getMarca() + ", Cor: " + this.getCor() + ", Ano: "
+                + this.getAno() + ", Quantidade de cilindradas: " + this.getCilindradas();
     }
 }
