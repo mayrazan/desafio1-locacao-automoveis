@@ -8,10 +8,10 @@ public class Locacao {
     private Map<String, String> locacao = new HashMap<String, String>();
     private Map<String, Date> datas = new HashMap<String, Date>();
     Scanner in = new Scanner(System.in);
-    CadastroVeiculos cv = CadastroVeiculos.getInstance();
-    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    Date dataLocacao = null;
-    Date dataLimite = null;
+    private CadastroVeiculos cv = CadastroVeiculos.getInstance();
+    private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    private Date dataLocacao = null;
+    private Date dataLimite = null;
 
     public boolean estaDisponivel(String placa) {
         if (locacao.containsKey(placa)) {
@@ -77,9 +77,8 @@ public class Locacao {
         System.out.println("Informe numero de whatsapp: ");
         String wpp = in.next();
         locacao.put(placa, wpp);
-        liberaPorData(placa);
+        informaData(placa);
         System.out.println("Veiculo locado com sucesso.");
-        mostraDatas();
     }
 
     public void liberaVeiculo() {
@@ -88,38 +87,39 @@ public class Locacao {
 
         if (locacao.containsKey(placa)) {
             locacao.remove(placa);
+            datas.remove(placa);
             System.out.println("Veiculo liberado.");
         } else {
             System.out.println("Placa não existe.");
         }
     }
 
-    public void liberaPorData(String placa) {
-
-        System.out.println("Informe data limite: (Ex: 01/01/2021)");
+    public void informaData(String placa) {
+        System.out.println("Informe data limite de locação: (Ex: 01/01/2021)");
         String dl = in.next();
 
         try {
-            dataLocacao = formato.parse("06/01/2021");
+            dataLocacao = new Date();
             dataLimite = formato.parse(dl);
         } catch (Exception e) {
             System.out.println("Data incorreta.");
         }
-        String dataFormatada = formato.format(dataLimite);
-        System.out.println(dataFormatada);
+        // String dataFormatada = formato.format(dataLimite);
+        // System.out.println(dataFormatada);
         datas.put(placa, dataLimite);
-
-        if (dataLocacao.after(dataLimite)) {
-            System.out.println("Locação vencida");
-        }
-        // utilize a biblioteca Date para criar uma locação com data limite, e indique
-        // em tela quando essa locação tiver vencido.
     }
 
     public void mostraDatas() {
-        for (String placa : datas.keySet()) {
-            Date data = datas.get(placa);
-            System.out.println("Placa: " + placa + ", data: " + data);
+        if (datas.isEmpty()) {
+            System.out.println("Nenhuma locação vencida ainda.");
+        } else {
+            for (String placa : datas.keySet()) {
+                Date data = datas.get(placa);
+                if (dataLocacao.after(data)) {
+                    System.out.println("Locação vencida. Placa: " + placa + ", data: " + data);
+                }
+            }
         }
+
     }
 }

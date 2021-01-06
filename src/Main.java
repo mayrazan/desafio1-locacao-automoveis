@@ -12,6 +12,7 @@ public class Main {
             System.out.println("3\t Mostrar veiculos locados: ");
             System.out.println("4\t Locar Veiculo: ");
             System.out.println("5\t Liberar veiculo locado: ");
+            System.out.println("6\t Mostrar locações vencidas: ");
             System.out.println("0\t Sair: ");
 
             System.out.println("Entre com sua escolha: ");
@@ -64,10 +65,13 @@ public class Main {
                 case 5:
                     locacao.liberaVeiculo();
                     break;
+                case 6:
+                    locacao.mostraDatas();
+                    break;
             }
 
             System.out.println();
-            if (escolha == 0 || escolha > 5) {
+            if (escolha == 0 || escolha > 6) {
                 in.close();
                 break;
             }
