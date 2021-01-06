@@ -4,9 +4,9 @@ public class Carro extends Veiculo {
     private Cambio cambio;
     private Direcao direcao;
 
-    public Carro(String placa, String marca, int ano, String cor, String categoria, int portas, String arCondicionado,
+    public Carro(String placa, String marca, int ano, String cor, int portas, String arCondicionado,
             Cambio cambio, Direcao direcao) {
-        super(placa, marca, ano, cor, categoria);
+        super(placa, marca, ano, cor);
         this.portas = portas;
         this.arCondicionado = arCondicionado;
         this.cambio = cambio;

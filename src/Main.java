@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
-        CadastroVeiculos cv = new CadastroVeiculos();
+        CadastroVeiculos cv = CadastroVeiculos.getInstance();
         Locacao locacao = new Locacao();
 
         do {
@@ -38,16 +38,16 @@ public class Main {
                         String cor = in.next();
 
                         if (opcao == 1) {
-                            Carro carro = new Carro(placa, marca, ano, cor, "B", 0, null, null, null);
+                            Carro carro = new Carro(placa, marca, ano, cor, 0, null, null, null);
                             cv.cadastraVeiculo(carro);
                         } else if (opcao == 2) {
-                            Moto moto = new Moto(placa, marca, ano, cor, "A", 0);
+                            Moto moto = new Moto(placa, marca, ano, cor, 0);
                             cv.cadastraVeiculo(moto);
                         } else if (opcao == 3) {
-                            Caminhao caminhao = new Caminhao(placa, marca, ano, cor, "C", 0.0);
+                            Caminhao caminhao = new Caminhao(placa, marca, ano, cor, 0.0);
                             cv.cadastraVeiculo(caminhao);
                         } else if (opcao == 4) {
-                            Onibus onibus = new Onibus(placa, marca, ano, cor, "D", 0);
+                            Onibus onibus = new Onibus(placa, marca, ano, cor, 0);
                             cv.cadastraVeiculo(onibus);
                         }
                     }
@@ -59,12 +59,10 @@ public class Main {
                     locacao.mostraVeiculosLocados();
                     break;
                 case 4:
-                    for (Veiculo veiculo : cv.getVeiculos()) {
-                        locacao.locaVeiculo(veiculo.getPlaca(), veiculo.getCategoria());
-                        break;
-                    }
+                    locacao.locaVeiculo();
                     break;
                 case 5:
+                    locacao.liberaVeiculo();
                     break;
             }
 

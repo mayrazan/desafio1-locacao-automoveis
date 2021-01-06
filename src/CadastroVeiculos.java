@@ -1,27 +1,32 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
 
 public class CadastroVeiculos {
 
     private ArrayList<Veiculo> veiculos = new ArrayList<>();
-    private Map<String, String> categoria = new HashMap<String, String>();
     Scanner in = new Scanner(System.in);
+
+    private static CadastroVeiculos instancia;
+
+    private CadastroVeiculos() {
+    }
+
+    public static synchronized CadastroVeiculos getInstance() {
+        if (instancia == null)
+            instancia = new CadastroVeiculos();
+
+        return instancia;
+    }
 
     public void cadastraVeiculo(Veiculo v) {
         if (v instanceof Carro) {
             tipoCarro((Carro) v);
-            categoria.put("B", v.getPlaca());
         } else if (v instanceof Moto) {
             tipoMoto((Moto) v);
-            categoria.put("A", v.getPlaca());
         } else if (v instanceof Caminhao) {
             tipoCaminhao((Caminhao) v);
-            categoria.put("C", v.getPlaca());
         } else if (v instanceof Onibus) {
             tipoOnibus((Onibus) v);
-            categoria.put("D", v.getPlaca());
         }
         veiculos.add(v);
         System.out.println("Veiculo cadastrado com sucesso!");
@@ -82,18 +87,7 @@ public class CadastroVeiculos {
         return true;
     }
 
-    public void mostra() {
-        for (String c : categoria.keySet()) {
-            String placa = categoria.get(c);
-            System.out.println("categoria: " + c + ", placa: " + placa);
-        }
-    }
-
     public ArrayList<Veiculo> getVeiculos() {
-        return this.veiculos;
-    }
-
-    public Map<String, String> getCategorias() {
-        return this.categoria;
+        return veiculos;
     }
 }
