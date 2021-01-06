@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 
 public class Locacao {
     private Map<String, String> locacao = new HashMap<String, String>();
-    private Map<String, Date> datas = new HashMap<String, Date>();
+    private Map<String, Date> historicoVencidas = new HashMap<String, Date>();
     Scanner in = new Scanner(System.in);
     private CadastroVeiculos cv = CadastroVeiculos.getInstance();
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -62,6 +62,7 @@ public class Locacao {
             for (String placa : locacao.keySet()) {
                 String whatsapp = locacao.get(placa);
                 System.out.println("Placa: " + placa + ", Whatsapp: " + whatsapp);
+                liberaAutomatico(placa);
             }
         }
     }
@@ -87,7 +88,7 @@ public class Locacao {
 
         if (locacao.containsKey(placa)) {
             locacao.remove(placa);
-            datas.remove(placa);
+           // datas.remove(placa);
             System.out.println("Veiculo liberado.");
         } else {
             System.out.println("Placa não existe.");
@@ -104,22 +105,25 @@ public class Locacao {
         } catch (Exception e) {
             System.out.println("Data incorreta.");
         }
-        // String dataFormatada = formato.format(dataLimite);
-        // System.out.println(dataFormatada);
-        datas.put(placa, dataLimite);
+        historicoVencidas.put(placa, dataLimite);
     }
 
     public void mostraDatas() {
-        if (datas.isEmpty()) {
+        if (historicoVencidas.isEmpty()) {
             System.out.println("Nenhuma locação vencida ainda.");
         } else {
-            for (String placa : datas.keySet()) {
-                Date data = datas.get(placa);
+            for (String placa : historicoVencidas.keySet()) {
+                Date data = historicoVencidas.get(placa);
                 if (dataLocacao.after(data)) {
                     System.out.println("Locação vencida. Placa: " + placa + ", data: " + data);
                 }
             }
         }
+    }
 
+    public void liberaAutomatico(String placa) {
+        if (dataLocacao.after(dataLimite)) {
+            locacao.remove(placa);
+        }
     }
 }
