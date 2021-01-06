@@ -2,8 +2,8 @@ public class Caminhao extends Veiculo {
 
     private double capacidade;
 
-    public Caminhao(String placa, String marca, int ano, String cor, double capacidade) {
-        super(placa, marca, ano, cor);
+    public Caminhao(String placa, String marca, int ano, String cor, String categoria, double capacidade) {
+        super(placa, marca, ano, cor, categoria);
         this.capacidade = capacidade;
     }
 

@@ -2,8 +2,8 @@ public class Onibus extends Veiculo {
 
     private int quantidadeAssentos;
 
-    public Onibus(String placa, String marca, int ano, String cor, int quantidadeAssentos) {
-        super(placa, marca, ano, cor);
+    public Onibus(String placa, String marca, int ano, String cor, String categoria, int quantidadeAssentos) {
+        super(placa, marca, ano, cor, categoria);
         this.quantidadeAssentos = quantidadeAssentos;
     }
 

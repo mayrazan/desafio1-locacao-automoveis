@@ -4,9 +4,8 @@ import java.util.Scanner;
 
 public class Locacao {
     private Map<String, String> locacao = new HashMap<String, String>();
-    //private Veiculo veiculo;
     Scanner in = new Scanner(System.in);
-    // CadastroVeiculos cv = new CadastroVeiculos();
+    CadastroVeiculos cv = new CadastroVeiculos();
 
     public boolean estaDisponivel(String placa) {
         if (locacao.containsKey(placa)) {
@@ -16,15 +15,22 @@ public class Locacao {
         }
     }
 
-    public void locaVeiculo() {
+    public void locaVeiculo(String p, String c) {
+        System.out.println("Informe categoria da cnh: (A, B, C ou D)");
+        String cnh = in.next().toUpperCase();
+
         System.out.println("Informe a placa do veiculo a ser locado: ");
-        String placa = in.next();
+        String placa = in.next().toUpperCase();
 
         if (estaDisponivel(placa)) {
-            System.out.println("Informe numero de whatsapp: ");
-            String wpp = in.next();
-            locacao.put(placa, wpp);
-            System.out.println("Veiculo locado com sucesso.");
+            if (p.equals(placa.toUpperCase()) && c.equals(cnh.toUpperCase())) {
+                System.out.println("Informe numero de whatsapp: ");
+                String wpp = in.next();
+                locacao.put(placa, wpp);
+                System.out.println("Veiculo locado com sucesso.");
+            } else {
+                System.out.println("Categoria não corresponde ao veiculo informado.");
+            }
         } else {
             System.out.println("Veiculo já locado.");
         }
@@ -42,9 +48,6 @@ public class Locacao {
         }
     }
 
-    // public void verificaCategoria() {
-    //     System.out.println("Informe categoria da cnh: (A, B, C ou D)");
-    //     String cnh = in.next();
-    // }
+
 
 }

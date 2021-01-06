@@ -8,7 +8,6 @@ public class CadastroVeiculos {
     private ArrayList<Veiculo> veiculos = new ArrayList<>();
     private Map<String, String> categoria = new HashMap<String, String>();
     Scanner in = new Scanner(System.in);
-   // private Locacao locacao = new Locacao();
 
     public void cadastraVeiculo(Veiculo v) {
         if (v instanceof Carro) {
@@ -83,14 +82,6 @@ public class CadastroVeiculos {
         return true;
     }
 
-    public boolean getCategoria(String opcao) {
-        if (categoria.containsKey(opcao)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void mostra() {
         for (String c : categoria.keySet()) {
             String placa = categoria.get(c);
@@ -98,12 +89,11 @@ public class CadastroVeiculos {
         }
     }
 
-    // public void verificaCategoria() {
-    //     System.out.println("Informe categoria da cnh: (A, B, C ou D)");
-    //     String cnh = in.next();
-    //     if (getCategoria(cnh) && categoria.values() == veiculos) {
-    //         locacao.locaVeiculo();
-    //     }
-    // }
+    public ArrayList<Veiculo> getVeiculos() {
+        return this.veiculos;
+    }
 
+    public Map<String, String> getCategorias() {
+        return this.categoria;
+    }
 }

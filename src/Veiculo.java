@@ -4,12 +4,14 @@ public abstract class Veiculo {
     private String marca;
     private int ano;
     private String cor;
+    private String categoria;
 
-    public Veiculo(String placa, String marca, int ano, String cor) {
+    public Veiculo(String placa, String marca, int ano, String cor, String categoria) {
         this.placa = placa;
         this.marca = marca;
         this.ano = ano;
         this.cor = cor;
+        this.categoria = categoria;
     }
 
     public abstract String mostraInformacoesVeiculo();
@@ -44,6 +46,14 @@ public abstract class Veiculo {
 
     public void setCor(String cor) {
         this.cor = cor;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
 }
