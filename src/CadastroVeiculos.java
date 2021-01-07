@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class CadastroVeiculos {
 
@@ -33,36 +34,59 @@ public class CadastroVeiculos {
     }
 
     public void tipoCarro(Carro c) {
-        System.out.println("Informe quantidade de portas: ");
-        int portas = in.nextInt();
-        c.setPortas(portas);
+        try {
+            System.out.println("Informe quantidade de portas: ");
+            int portas = in.nextInt();
+            c.setPortas(portas);
+        } catch (InputMismatchException e) {
+            System.out.println("Informe somente números!");
+            in.nextLine();
+        }
+
         System.out.println("Informe se possui ar-condicionado: (S ou N)");
         String arCondicionado = in.next().toUpperCase();
         c.possuiArCondicionado(arCondicionado);
+
         System.out.println("Informe cambio: (M ou A)");
         String cambio = in.next().toUpperCase();
         c.escolheCambio(cambio);
+        
         System.out.println("Informe direção: (M, H ou E)");
         String direcao = in.next().toUpperCase();
         c.escolheDirecao(direcao);
     }
 
     public void tipoMoto(Moto m) {
-        System.out.println("Informe quantidade de cilindradas: ");
-        int cilindradas = in.nextInt();
-        m.setCilindradas(cilindradas);
+        try {
+            System.out.println("Informe quantidade de cilindradas: ");
+            int cilindradas = in.nextInt();
+            m.setCilindradas(cilindradas);
+        } catch (InputMismatchException e) {
+            System.out.println("Informe somente números!");
+            in.nextLine();
+        }
     }
 
     public void tipoCaminhao(Caminhao c) {
-        System.out.println("Informe capacidade em toneladas: ");
-        double capacidade = in.nextDouble();
-        c.setCapacidade(capacidade);
+        try {
+            System.out.println("Informe capacidade em toneladas: ");
+            double capacidade = in.nextDouble();
+            c.setCapacidade(capacidade);
+        } catch (InputMismatchException e) {
+            System.out.println("Informe somente números!");
+            in.nextLine();
+        }
     }
 
     public void tipoOnibus(Onibus o) {
-        System.out.println("Informe quantidade de assentos: ");
-        int assentos = in.nextInt();
-        o.setQuantidadeAssentos(assentos);
+        try {
+            System.out.println("Informe quantidade de assentos: ");
+            int assentos = in.nextInt();
+            o.setQuantidadeAssentos(assentos);
+        } catch (InputMismatchException e) {
+            System.out.println("Informe somente números!");
+            in.nextLine();
+        }
     }
 
     public void mostraVeiculos() {
@@ -88,5 +112,33 @@ public class CadastroVeiculos {
 
     public ArrayList<Veiculo> getVeiculos() {
         return veiculos;
+    }
+
+    public void chamaCadastro(int opcao) {
+        System.out.println("Informe placa: ");
+        String placa = in.next().toUpperCase();
+
+        if (verificaPlaca(placa)) {
+            System.out.println("Informe marca: ");
+            String marca = in.next();
+            System.out.println("Informe ano: ");
+            int ano = in.nextInt();
+            System.out.println("Informe cor: ");
+            String cor = in.next();
+
+            if (opcao == 1) {
+                Carro carro = new Carro(placa, marca, ano, cor, 0, null, null, null);
+                cadastraVeiculo(carro);
+            } else if (opcao == 2) {
+                Moto moto = new Moto(placa, marca, ano, cor, 0);
+                cadastraVeiculo(moto);
+            } else if (opcao == 3) {
+                Caminhao caminhao = new Caminhao(placa, marca, ano, cor, 0.0);
+                cadastraVeiculo(caminhao);
+            } else if (opcao == 4) {
+                Onibus onibus = new Onibus(placa, marca, ano, cor, 0);
+                cadastraVeiculo(onibus);
+            }
+        }
     }
 }
