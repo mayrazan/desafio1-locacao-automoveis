@@ -1,7 +1,8 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         Scanner in = new Scanner(System.in);
         CadastroVeiculos cv = CadastroVeiculos.getInstance();
         Locacao locacao = new Locacao();
@@ -13,6 +14,7 @@ public class Main {
             System.out.println("4\t Locar Veiculo: ");
             System.out.println("5\t Liberar veiculo locado: ");
             System.out.println("6\t Mostrar locações vencidas: ");
+            System.out.println("7\t Liberar locações vencidas: ");
             System.out.println("0\t Sair: ");
 
             System.out.println("Entre com sua escolha: ");
@@ -68,10 +70,13 @@ public class Main {
                 case 6:
                     locacao.mostraDatas();
                     break;
+                case 7:
+                    locacao.liberaAutomatico();
+                    break;
             }
 
             System.out.println();
-            if (escolha == 0 || escolha > 6) {
+            if (escolha == 0 || escolha > 7) {
                 in.close();
                 break;
             }

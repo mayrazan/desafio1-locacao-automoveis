@@ -2,6 +2,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Date;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 public class Locacao {
@@ -22,30 +23,27 @@ public class Locacao {
         }
     }
 
-    public void locaVeiculo() {
+    public void locaVeiculo() throws IOException {
         System.out.println("Informe categoria da sua cnh: (A, B, C ou D)");
         String cnh = in.next().toUpperCase();
         System.out.println("Informe a placa do veiculo a ser locado: ");
         String placa = in.next().toUpperCase();
-
         for (Veiculo veiculo : cv.getVeiculos()) {
             if (verificacaoPlaca(veiculo.getPlaca(), placa)) {
 
                 if (estaDisponivel(placa)) {
 
-                    if (veiculo instanceof Caminhao || veiculo instanceof Carro && cnh.contains("C")) {
+                    if (veiculo instanceof Caminhao && cnh.equalsIgnoreCase("C")
+                            || veiculo instanceof Carro && cnh.equalsIgnoreCase("C")) {
                         informaWpp(placa);
-                        break;
-                    } else if (veiculo instanceof Caminhao || veiculo instanceof Carro
-                            || veiculo instanceof Onibus && cnh.contains("D")) {
+                    } else if (veiculo instanceof Caminhao && cnh.equalsIgnoreCase("D")
+                            || veiculo instanceof Carro && cnh.equalsIgnoreCase("D")
+                            || veiculo instanceof Onibus && cnh.equalsIgnoreCase("D")) {
                         informaWpp(placa);
-                        break;
-                    } else if (veiculo instanceof Carro && cnh.contains("B")) {
+                    } else if (veiculo instanceof Carro && cnh.equalsIgnoreCase("B")) {
                         informaWpp(placa);
-                        break;
-                    } else if (veiculo instanceof Moto && cnh.contains("A")) {
+                    } else if (cnh.equalsIgnoreCase("A") && veiculo instanceof Moto) {
                         informaWpp(placa);
-                        break;
                     } else {
                         System.out.println("Categoria não corresponde ao veiculo informado.");
                     }
@@ -62,7 +60,6 @@ public class Locacao {
             for (String placa : locacao.keySet()) {
                 String whatsapp = locacao.get(placa);
                 System.out.println("Placa: " + placa + ", Whatsapp: " + whatsapp);
-                liberaAutomatico(placa);
             }
         }
     }
@@ -88,7 +85,6 @@ public class Locacao {
 
         if (locacao.containsKey(placa)) {
             locacao.remove(placa);
-           // datas.remove(placa);
             System.out.println("Veiculo liberado.");
         } else {
             System.out.println("Placa não existe.");
@@ -102,10 +98,10 @@ public class Locacao {
         try {
             dataLocacao = new Date();
             dataLimite = formato.parse(dl);
+            historicoVencidas.put(placa, dataLimite);
         } catch (Exception e) {
             System.out.println("Data incorreta.");
         }
-        historicoVencidas.put(placa, dataLimite);
     }
 
     public void mostraDatas() {
@@ -121,9 +117,13 @@ public class Locacao {
         }
     }
 
-    public void liberaAutomatico(String placa) {
-        if (dataLocacao.after(dataLimite)) {
-            locacao.remove(placa);
+    public void liberaAutomatico() {
+        for (String placa : historicoVencidas.keySet()) {
+            Date data = historicoVencidas.get(placa);
+            if (dataLocacao.after(data)) {
+                locacao.remove(placa);
+                System.out.println("Locações vencidas liberadas.");
+            }
         }
     }
 }

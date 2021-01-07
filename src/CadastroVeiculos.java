@@ -82,7 +82,6 @@ public class CadastroVeiculos {
                 System.out.println("Placa já cadastrada! Tente novamente.");
                 return false;
             }
-            break;
         }
         return true;
     }
