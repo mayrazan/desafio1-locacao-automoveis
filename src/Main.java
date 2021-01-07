@@ -16,7 +16,7 @@ public class Main {
                 System.out.println("4\t Locar Veiculo: ");
                 System.out.println("5\t Liberar veiculo locado: ");
                 System.out.println("6\t Mostrar locações vencidas: ");
-                System.out.println("7\t Liberar locações vencidas: ");
+                System.out.println("7\t Liberar todas as locações vencidas: ");
                 System.out.println("0\t Sair: ");
 
                 System.out.println("Entre com sua escolha: ");
