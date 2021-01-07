@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.Date;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.*;
+import java.text.ParseException;
 
 public class Locacao {
     private Map<String, String> locacao = new HashMap<String, String>();
@@ -28,11 +30,10 @@ public class Locacao {
         String cnh = in.next().toUpperCase();
         System.out.println("Informe a placa do veiculo a ser locado: ");
         String placa = in.next().toUpperCase();
+
         for (Veiculo veiculo : cv.getVeiculos()) {
             if (verificacaoPlaca(veiculo.getPlaca(), placa)) {
-
                 if (estaDisponivel(placa)) {
-
                     if (veiculo instanceof Caminhao && cnh.equalsIgnoreCase("C")
                             || veiculo instanceof Carro && cnh.equalsIgnoreCase("C")) {
                         informaWpp(placa);
@@ -80,28 +81,38 @@ public class Locacao {
     }
 
     public void liberaVeiculo() {
-        System.out.println("Informe a placa do veiculo a ser liberado: ");
-        String placa = in.next().toUpperCase();
-
-        if (locacao.containsKey(placa)) {
-            locacao.remove(placa);
-            System.out.println("Veiculo liberado.");
+        if (locacao.isEmpty()) {
+            System.out.println("Nenhum veiculo a ser liberado ainda.");
         } else {
-            System.out.println("Placa não existe.");
+            System.out.println("Informe a placa do veiculo a ser liberado: ");
+            String placa = in.next().toUpperCase();
+
+            if (locacao.containsKey(placa)) {
+                locacao.remove(placa);
+                historicoVencidas.remove(placa);
+                System.out.println("Veiculo liberado.");
+            } else {
+                System.out.println("Placa não existe.");
+            }
         }
     }
 
     public void informaData(String placa) {
-        System.out.println("Informe data limite de locação: (Ex: 01/01/2021)");
-        String dl = in.next();
-
-        try {
-            dataLocacao = new Date();
-            dataLimite = formato.parse(dl);
-            historicoVencidas.put(placa, dataLimite);
-        } catch (Exception e) {
-            System.out.println("Data incorreta.");
+        dataLocacao = new Date();
+        while (dataLimite == null) {
+            System.out.println("Informe data limite de locação: (Ex: 01/01/2021)");
+            String dl = in.next();
+            try {
+                dataLimite = formato.parse(dl);
+            } catch (ParseException e) {
+                System.out.println("Data no formato incorreto.");
+            }
         }
+        if (dataLocacao.after(dataLimite)) {
+            historicoVencidas.put(placa, dataLimite);
+        }
+
+        dataLimite = null;
     }
 
     public void mostraDatas() {
@@ -110,20 +121,16 @@ public class Locacao {
         } else {
             for (String placa : historicoVencidas.keySet()) {
                 Date data = historicoVencidas.get(placa);
-                if (dataLocacao.after(data)) {
-                    System.out.println("Locação vencida. Placa: " + placa + ", data: " + data);
-                }
+                System.out.println("Locação vencida. Placa: " + placa + ", data: " + data);
             }
         }
     }
 
-    public void liberaAutomatico() {
-        for (String placa : historicoVencidas.keySet()) {
-            Date data = historicoVencidas.get(placa);
-            if (dataLocacao.after(data)) {
-                locacao.remove(placa);
-                System.out.println("Locações vencidas liberadas.");
-            }
+    public void liberaTodasVencidas() {
+        for (Object placa : new HashSet<>(historicoVencidas.keySet())) {
+            historicoVencidas.remove(placa);
+            locacao.remove(placa);
         }
+        System.out.println("Locações vencidas liberadas.");
     }
 }
